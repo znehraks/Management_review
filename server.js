@@ -48,4 +48,12 @@ app.post("/api/customers", upload.single("image"), (req, res) => {
     console.log(rows);
   });
 });
+
+app.delete("/api/customers/:id", (req, res) => {
+  let sql = "UPDATE CUSTOMER SET isDeleted = 1 WHERE id = ?";
+  let params = [req.params.id];
+  connection.query(sql, params, (err, rows, fields) => {
+    res.send(rows);
+  });
+});
 app.listen(port, () => console.log(`Listening on port ${port}`));
